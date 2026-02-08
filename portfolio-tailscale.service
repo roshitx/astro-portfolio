@@ -1,0 +1,16 @@
+[Unit]
+Description=Roshit Portfolio (Tailscale Private)
+After=network.target tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+Type=simple
+User=roshit
+WorkingDirectory=/home/roshit/project
+ExecStartPre=/bin/bash -c 'cd /home/roshit/project && npm run build'
+ExecStart=/usr/bin/serve dist -l 3000 --single
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
