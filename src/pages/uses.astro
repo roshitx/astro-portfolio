@@ -1,0 +1,442 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import '../styles/global.css';
+
+interface UsesItem {
+  name: string;
+  description: string;
+  link?: string;
+  icon:
+    | 'laptop'
+    | 'keyboard'
+    | 'monitor'
+    | 'mouse'
+    | 'headphones'
+    | 'phone'
+    | 'editor'
+    | 'terminal'
+    | 'browser'
+    | 'git'
+    | 'docker'
+    | 'cloud'
+    | 'design'
+    | 'notes'
+    | 'music'
+    | 'chat'
+    | 'mail'
+    | 'calendar'
+    | 'database'
+    | 'vercel'
+    | 'package'
+    | 'shield';
+}
+
+interface UsesCategory {
+  title: string;
+  description: string;
+  items: UsesItem[];
+}
+
+const categories: UsesCategory[] = [
+  {
+    title: 'Hardware',
+    description: 'The machines and peripherals on my desk.',
+    items: [
+      {
+        name: 'MacBook Pro 14" (M3 Pro)',
+        description: '14-inch, 36GB RAM, 1TB SSD — my daily driver for all things code.',
+        icon: 'laptop',
+      },
+      {
+        name: 'LG 27UP850 4K Monitor',
+        description: '27-inch 4K IPS for a sharp, true-to-color workspace.',
+        icon: 'monitor',
+      },
+      {
+        name: 'Keychron K3 Pro',
+        description: 'Low-profile mechanical, brown switches, wireless.',
+        icon: 'keyboard',
+      },
+      {
+        name: 'Logitech MX Master 3S',
+        description: 'Silent clicks, flawless scroll, perfect for long sessions.',
+        icon: 'mouse',
+      },
+      {
+        name: 'Sony WH-1000XM5',
+        description: 'Noise-cancelling headphones for deep work.',
+        icon: 'headphones',
+      },
+      {
+        name: 'iPhone 15 Pro',
+        description: 'Mobile testing and on-the-go life.',
+        icon: 'phone',
+      },
+    ],
+  },
+  {
+    title: 'Editor & Terminal',
+    description: 'Where the real work happens.',
+    items: [
+      {
+        name: 'Visual Studio Code',
+        description: 'Primary editor. Theme: One Dark Pro. Font: JetBrains Mono.',
+        link: 'https://code.visualstudio.com',
+        icon: 'editor',
+      },
+      {
+        name: 'Neovim',
+        description: 'For quick edits and server-side work — LazyVim config.',
+        link: 'https://neovim.io',
+        icon: 'editor',
+      },
+      {
+        name: 'Warp',
+        description: 'Modern terminal with blocks, AI, and team features.',
+        link: 'https://www.warp.dev',
+        icon: 'terminal',
+      },
+      {
+        name: 'zsh + starship',
+        description: 'Fast, minimal prompt with git + language context baked in.',
+        link: 'https://starship.rs',
+        icon: 'terminal',
+      },
+      {
+        name: 'JetBrains Mono',
+        description: 'Ligature-friendly, readable at every size.',
+        link: 'https://www.jetbrains.com/lp/mono/',
+        icon: 'editor',
+      },
+    ],
+  },
+  {
+    title: 'Development',
+    description: 'Tools that ship code to production.',
+    items: [
+      {
+        name: 'Git + GitHub',
+        description: 'Source control and collaboration for every project.',
+        link: 'https://github.com/roshitx',
+        icon: 'git',
+      },
+      {
+        name: 'Docker + Compose',
+        description: 'Local dev environments and production containers.',
+        link: 'https://docker.com',
+        icon: 'docker',
+      },
+      {
+        name: 'pnpm',
+        description: 'Fast, disk-efficient package manager. Default for new projects.',
+        link: 'https://pnpm.io',
+        icon: 'package',
+      },
+      {
+        name: 'PostgreSQL',
+        description: 'Go-to relational database for most backend work.',
+        link: 'https://www.postgresql.org',
+        icon: 'database',
+      },
+      {
+        name: 'Postman',
+        description: 'API exploration, testing, and collection sharing.',
+        link: 'https://www.postman.com',
+        icon: 'browser',
+      },
+      {
+        name: '1Password',
+        description: 'Passwords, SSH keys, and dev secrets — all in one place.',
+        link: 'https://1password.com',
+        icon: 'shield',
+      },
+    ],
+  },
+  {
+    title: 'Design & Productivity',
+    description: 'For thinking, planning, and shipping polish.',
+    items: [
+      {
+        name: 'Figma',
+        description: 'Design, prototype, and handoff. Where every UI starts.',
+        link: 'https://figma.com',
+        icon: 'design',
+      },
+      {
+        name: 'Raycast',
+        description: 'Launcher, clipboard history, and scripts — faster than Spotlight.',
+        link: 'https://raycast.com',
+        icon: 'package',
+      },
+      {
+        name: 'Obsidian',
+        description: 'Second brain — daily notes, project docs, and long-form writing.',
+        link: 'https://obsidian.md',
+        icon: 'notes',
+      },
+      {
+        name: 'Notion',
+        description: 'Team docs, project tracking, and shared knowledge bases.',
+        link: 'https://notion.so',
+        icon: 'notes',
+      },
+      {
+        name: 'Linear',
+        description: 'Issue tracking that actually feels fast.',
+        link: 'https://linear.app',
+        icon: 'calendar',
+      },
+    ],
+  },
+  {
+    title: 'Services & Hosting',
+    description: 'Where things run in production.',
+    items: [
+      {
+        name: 'Vercel',
+        description: 'Deploy frontends and edge functions in seconds.',
+        link: 'https://vercel.com',
+        icon: 'vercel',
+      },
+      {
+        name: 'Cloudflare',
+        description: 'DNS, CDN, Workers, and R2 for global performance.',
+        link: 'https://cloudflare.com',
+        icon: 'cloud',
+      },
+      {
+        name: 'Railway',
+        description: 'Simple, scalable hosting for backends and databases.',
+        link: 'https://railway.app',
+        icon: 'cloud',
+      },
+      {
+        name: 'Supabase',
+        description: 'Postgres + auth + storage — my default BaaS for side projects.',
+        link: 'https://supabase.com',
+        icon: 'database',
+      },
+      {
+        name: 'Spotify',
+        description: 'Lo-fi and focus playlists for the daily grind.',
+        link: 'https://spotify.com',
+        icon: 'music',
+      },
+    ],
+  },
+];
+
+const lastUpdated = new Date().toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<Layout
+  title="Uses — Roshit"
+  description="The hardware, editor, tools, and services Roshit uses every day to build software."
+>
+  <main class="pt-24 pb-20" id="uses">
+    <div class="container-custom">
+      <!-- Header -->
+      <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+        <span class="text-label text-accent-600 mb-3 block">/uses</span>
+
+        <h1 class="heading-xl mb-4 md:mb-6">
+          The <span class="text-accent-600">tools</span> I use every day
+        </h1>
+
+        <p class="body-lg max-w-2xl mx-auto">
+          A living inventory of the hardware, editor setup, and services I rely on to design,
+          build, and ship software. Updated as things change — last edited {lastUpdated}.
+        </p>
+
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <span class="status-badge">Currently happy with this setup</span>
+          <button
+            type="button"
+            data-open-command-palette
+            class="btn-ghost text-sm gap-2"
+            aria-label="Open command palette to search"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16z"></path>
+            </svg>
+            Search tools
+            <kbd class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-primary-500 bg-primary-100 rounded border border-primary-200">
+              <span>⌘</span><span>K</span>
+            </kbd>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category index (sticky on desktop) -->
+      <nav
+        aria-label="Category quick links"
+        class="mb-10 md:mb-12 flex flex-wrap justify-center gap-2"
+      >
+        {categories.map((category) => (
+          <a
+            href={`#${category.title.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')}`}
+            class="px-3.5 py-1.5 text-sm font-medium rounded-full bg-primary-100 text-primary-700 hover:bg-primary-200 hover:text-primary-900 transition-all duration-200"
+          >
+            {category.title}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Categories -->
+      <div class="space-y-16 md:space-y-20">
+        {categories.map((category, idx) => {
+          const slug = category.title.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-');
+          return (
+            <section
+              id={slug}
+              aria-labelledby={`${slug}-heading`}
+              class="opacity-0 animate-fade-in-up"
+              style={`animation-fill-mode: forwards; animation-delay: ${Math.min(idx, 4) * 80}ms;`}
+            >
+              <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6 md:mb-8 pb-4 border-b border-primary-200">
+                <div>
+                  <span class="text-label text-primary-500">0{idx + 1} — Category</span>
+                  <h2 id={`${slug}-heading`} class="heading-md mt-1">
+                    {category.title}
+                  </h2>
+                </div>
+                <p class="body-sm md:max-w-sm md:text-right">{category.description}</p>
+              </div>
+
+              <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                {category.items.map((item) => (
+                  <li>
+                    <a
+                      href={item.link ?? '#'}
+                      target={item.link ? '_blank' : undefined}
+                      rel={item.link ? 'noopener noreferrer' : undefined}
+                      class={`uses-card group card ${item.link ? 'card-interactive' : ''} p-5 flex gap-4 items-start h-full`}
+                      aria-disabled={item.link ? undefined : 'true'}
+                      tabindex={item.link ? 0 : -1}
+                    >
+                      <span
+                        class="shrink-0 w-11 h-11 rounded-lg bg-accent-50 text-accent-600 flex items-center justify-center group-hover:bg-accent-100 transition-colors duration-200"
+                        aria-hidden="true"
+                      >
+                        {/* Icons */}
+                        {item.icon === 'laptop' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+                        )}
+                        {item.icon === 'monitor' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m-4.5-15A2.25 2.25 0 008.25 4.5v10.5A2.25 2.25 0 0010.5 17.25h3A2.25 2.25 0 0015.75 15V4.5A2.25 2.25 0 0013.5 2.25h-3z"/></svg>
+                        )}
+                        {item.icon === 'keyboard' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 10.5h.008v.008H6V10.5zm0 3h.008v.008H6v-.008zm3-3h.008v.008H9v-.008zm0 3h.008v.008H9v-.008zm3-3h.008v.008H12v-.008zm0 3h.008v.008H12v-.008zm3-3h.008v.008H15v-.008zm0 3h.008v.008H15v-.008zm3-3h.008v.008H18v-.008zm0 3h.008v.008H18v-.008zM8.25 16.5h7.5M3.75 7.5h16.5A1.5 1.5 0 0121.75 9v6a1.5 1.5 0 01-1.5 1.5H3.75A1.5 1.5 0 012.25 15V9A1.5 1.5 0 013.75 7.5z"/></svg>
+                        )}
+                        {item.icon === 'mouse' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7.5V5.25a3 3 0 00-6 0V7.5m0 0h6m-6 0a3 3 0 00-3 3V15a6 6 0 0012 0v-4.5a3 3 0 00-3-3m-3 3v3"/></svg>
+                        )}
+                        {item.icon === 'headphones' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 18.75V15a9 9 0 1118 0v3.75M6.75 18.75a1.5 1.5 0 11-3 0v-3a1.5 1.5 0 013 0v3zm13.5 0a1.5 1.5 0 01-3 0v-3a1.5 1.5 0 013 0v3z"/></svg>
+                        )}
+                        {item.icon === 'phone' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+                        )}
+                        {item.icon === 'editor' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zM19.5 19.5h-15"/></svg>
+                        )}
+                        {item.icon === 'terminal' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z"/></svg>
+                        )}
+                        {item.icon === 'browser' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                        )}
+                        {item.icon === 'git' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+                        )}
+                        {item.icon === 'docker' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+                        )}
+                        {item.icon === 'cloud' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"/></svg>
+                        )}
+                        {item.icon === 'design' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+                        )}
+                        {item.icon === 'notes' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                        )}
+                        {item.icon === 'music' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/></svg>
+                        )}
+                        {item.icon === 'chat' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+                        )}
+                        {item.icon === 'mail' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                        )}
+                        {item.icon === 'calendar' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+                        )}
+                        {item.icon === 'database' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+                        )}
+                        {item.icon === 'vercel' && (
+                          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l10 18H2L12 2z"/></svg>
+                        )}
+                        {item.icon === 'package' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+                        )}
+                        {item.icon === 'shield' && (
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
+                        )}
+                      </span>
+
+                      <span class="min-w-0 flex-1">
+                        <span class="flex items-center gap-1.5">
+                          <span class="font-heading font-semibold text-primary-900 group-hover:text-accent-600 transition-colors duration-200">
+                            {item.name}
+                          </span>
+                          {item.link && (
+                            <svg
+                              class="w-3.5 h-3.5 text-primary-400 group-hover:text-accent-500 transition-colors duration-200"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+                            </svg>
+                          )}
+                        </span>
+                        <span class="body-sm mt-1 block">{item.description}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
+
+      <!-- Closing note -->
+      <aside class="mt-16 md:mt-20 max-w-2xl mx-auto text-center p-8 rounded-2xl bg-white border border-primary-100 shadow-soft">
+        <h2 class="heading-sm mb-3">Have a tool I should try?</h2>
+        <p class="body-md mb-5">
+          I'm always curious about new gear and workflow improvements. If you have a recommendation,
+          I'd love to hear it.
+        </p>
+        <a href="/#contact" class="btn-primary">
+          Send me a tip
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+          </svg>
+        </a>
+      </aside>
+    </div>
+  </main>
+
+  <Footer />
+  <ScrollToTop />
+</Layout>

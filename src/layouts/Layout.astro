@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 
 interface Props {
   title?: string;
@@ -63,6 +64,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://roshit.d
     <main class="flex-1" id="main-content">
       <slot />
     </main>
+    <CommandPalette />
     
     <!-- Skip to main content link for accessibility -->
     <a 
